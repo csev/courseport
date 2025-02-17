@@ -52,7 +52,7 @@
     <p>Upload Course Content</p>
     <form id="uploadForm" action="{% url 'upload:upload_files' %}" method="POST" enctype="multipart/form-data" style="display: none;">
       {% csrf_token %}
-      <input type="file" id="fileInput" name="files[]" multiple>
+      <input type="file" id="fileInput" name="zip">
     </form>
   </div>
 </div>
