@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
 from pathlib import Path
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 urlpatterns = [
@@ -28,5 +28,10 @@ urlpatterns = [
         {'document_root': BASE_DIR / 'site',
          'show_indexes': True},
         name='site_path'
+    ),
+    path('favicon.ico', serve, {
+            'path': 'favicon.ico',
+            'document_root': os.path.join(BASE_DIR, 'site'),
+        }
     ),
 ]
