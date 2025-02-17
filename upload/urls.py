@@ -1,7 +1,9 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
+
+app_name = 'upload'  # Namespace for the application
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('uploads.urls')),
+    path('', views.index, name='index'),
+    path('upload/', views.upload_files, name='upload_files'),
 ] 

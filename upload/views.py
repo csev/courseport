@@ -5,7 +5,7 @@ from django.core.files.storage import default_storage
 import os
 
 def index(request):
-    return render(request, 'uploads/index.html')
+    return render(request, 'upload/index.html')
 
 @csrf_exempt
 def upload_files(request):
@@ -15,7 +15,7 @@ def upload_files(request):
         
         for file in files:
             # Save file to MEDIA_ROOT/uploads directory
-            file_path = default_storage.save(f'uploads/{file.name}', file)
+            file_path = default_storage.save(f'tmp/{file.name}', file)
             uploaded_files.append(file_path)
             
         return JsonResponse({

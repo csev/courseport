@@ -50,7 +50,7 @@
 <div class="container">
   <div class="drag-and-drop-container">
     <p>Upload Course Content</p>
-    <form id="uploadForm" action="{% url 'upload_files' %}" method="POST" enctype="multipart/form-data" style="display: none;">
+    <form id="uploadForm" action="{% url 'upload:upload_files' %}" method="POST" enctype="multipart/form-data" style="display: none;">
       {% csrf_token %}
       <input type="file" id="fileInput" name="files[]" multiple>
     </form>
