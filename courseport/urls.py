@@ -17,18 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
-import os
-from courseport import settings
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('upload.urls')),
-    re_path(r'^tmp/(?P<path>.*)$', serve,
-        {'document_root': os.path.join(BASE_DIR, 'static'),
+    path('admin/', admin.site.urls),
+    re_path(r'^site/(?P<path>.*)$', serve,
+        {'document_root': BASE_DIR / 'site',
          'show_indexes': True},
-        name='tmp_path'
-        ),
+        name='site_path'
+    ),
 ]
