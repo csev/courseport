@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.large-button {
+  font-size: 2em;
+  padding: 20px 40px;
+}
+.drag-and-drop-container {
+  width: 300px;
+  height: 200px;
+  border: 3px dashed #ccc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  transition: border-color 0.3s ease;
+  background-color: white;
+}
+.drag-and-drop-container.dragover {
+  border-color: #4CAF50;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+.drag-and-drop-container p {
+  font-size: 1.5em;
+  text-align: center;
+  margin: 10px;
+}
+@media screen and (max-width: 800px) {
+  #backgroundImg {
+    width: 800px !important;
+    height: 100vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    object-fit: cover !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="drag-and-drop-container">
+    <p>Upload Course Content</p>
+    <form id="uploadForm" action="{% url 'upload_files' %}" method="POST" enctype="multipart/form-data" style="display: none;">
+      {% csrf_token %}
+      <input type="file" id="fileInput" name="files[]" multiple>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const backgroundImg = document.createElement('img');
+  backgroundImg.id = 'backgroundImg';
+  backgroundImg.src = "{% static 'images/Gemini_Generated_Image_73sv7j73sv7j73sv.jpg' %}";
+  backgroundImg.style.zIndex = '-1000';
+  backgroundImg.style.position = 'fixed';
+  backgroundImg.style.top = '0';
+  backgroundImg.style.left = '0';
+  backgroundImg.style.height = '110%';
+  backgroundImg.style.width = '110%';
+  backgroundImg.style.objectFit = 'cover';
+  backgroundImg.style.opacity = '0';
+  backgroundImg.style.transition = 'opacity 2s';
+  backgroundImg.style.mozTransition = 'opacity 2s';
+  backgroundImg.style.webkitTransition = 'opacity 2s';
+  backgroundImg.style.oTransition = 'opacity 2s';
+  
+  backgroundImg.onload = function() {
+    this.style.opacity = '1';
+  };
+  
+  document.body.insertBefore(backgroundImg, document.body.firstChild);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const dropZone = document.querySelector('.drag-and-drop-container');
+  const fileInput = document.getElementById('fileInput');
+  const uploadForm = document.getElementById('uploadForm');
+
+  dropZone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.classList.add('dragover');
+  });
+
+  dropZone.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    this.classList.remove('dragover');
+  });
+
+  dropZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    fileInput.files = files;
+    uploadForm.submit();
+  });
+
+  dropZone.addEventListener('click', function() {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', function() {
+    uploadForm.submit();
+  });
+});
+</script>
+</body>
+</html> 
