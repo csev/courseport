@@ -58,6 +58,8 @@
 </div>
 
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function() {
   const backgroundImg = document.createElement('img');
   backgroundImg.id = 'backgroundImg';
@@ -113,6 +115,23 @@ document.addEventListener('DOMContentLoaded', function() {
     uploadForm.submit();
   });
 });
+
+const images = [ "Gemini_Generated_Image_73sv7j73sv7j73sv.jpg",
+"Gemini_Generated_Image_j96hp0j96hp0j96h.jpg",
+"Gemini_Generated_Image_dl8x51dl8x51dl8x.jpg",
+"Gemini_Generated_Image_nravsxnravsxnrav.jpg",
+"Gemini_Generated_Image_vpomskvpomskvpom.jpg",
+"Gemini_Generated_Image_8fnbn38fnbn38fnb.jpg"];
+
+function changeImage() {
+  const randomIndex = Math.floor(Math.random() * images.length);
+  const selectedImage = images[randomIndex];
+    console.log(selectedImage);
+  document.getElementById("backgroundImg").src = '/site/images/' + selectedImage;
+}
+
+setInterval(changeImage, 120000); // 120 seconds
+
 </script>
 </body>
 </html> 
