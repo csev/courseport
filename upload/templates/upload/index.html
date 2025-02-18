@@ -3,11 +3,19 @@
 <html>
 <head>
 <style>
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 .large-button {
   font-size: 2em;
@@ -24,7 +32,7 @@
   align-items: center;
   margin: 20px;
   transition: border-color 0.3s ease;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 .drag-and-drop-container.dragover {
   border-color: #4CAF50;
@@ -63,7 +71,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const backgroundImg = document.createElement('img');
   backgroundImg.id = 'backgroundImg';
-  backgroundImg.src = "/site/images/Gemini_Generated_Image_73sv7j73sv7j73sv.jpg";
+  backgroundImg.src = "/site/images/Gemini_Generated_Image_8fnbn38fnbn38fnb.jpg";
   backgroundImg.style.zIndex = '-1000';
   backgroundImg.style.position = 'fixed';
   backgroundImg.style.top = '0';
@@ -72,10 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
   backgroundImg.style.width = '110%';
   backgroundImg.style.objectFit = 'cover';
   backgroundImg.style.opacity = '0';
-  backgroundImg.style.transition = 'opacity 2s';
-  backgroundImg.style.mozTransition = 'opacity 2s';
-  backgroundImg.style.webkitTransition = 'opacity 2s';
-  backgroundImg.style.oTransition = 'opacity 2s';
+  backgroundImg.style.transition = 'opacity 0.5s';
+  backgroundImg.style.mozTransition = 'opacity 0.5s';
+  backgroundImg.style.webkitTransition = 'opacity 0.5s';
+  backgroundImg.style.oTransition = 'opacity 0.5s';
   
   backgroundImg.onload = function() {
     this.style.opacity = '1';
@@ -124,10 +132,19 @@ const images = [ "Gemini_Generated_Image_73sv7j73sv7j73sv.jpg",
 "Gemini_Generated_Image_8fnbn38fnbn38fnb.jpg"];
 
 function changeImage() {
+  const backgroundImg = document.getElementById("backgroundImg");
   const randomIndex = Math.floor(Math.random() * images.length);
   const selectedImage = images[randomIndex];
-    console.log(selectedImage);
-  document.getElementById("backgroundImg").src = '/site/images/' + selectedImage;
+  
+  // Start fade out
+  backgroundImg.style.opacity = '0';
+  
+  // Wait for fade out to complete before changing source
+  setTimeout(() => {
+    backgroundImg.src = '/site/images/' + selectedImage;
+    // Fade back in after source change
+    backgroundImg.style.opacity = '1';
+  }, 500); // Reduced to 500ms (0.5 seconds)
 }
 
 setInterval(changeImage, 120000); // 120 seconds
