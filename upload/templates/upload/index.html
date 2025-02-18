@@ -137,6 +137,45 @@ body {
   cursor: pointer;
   color: #666;
 }
+
+.spinner-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-text {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
 </head>
 <body>
@@ -147,6 +186,13 @@ body {
       {% csrf_token %}
       <input type="file" id="fileInput" name="zip">
     </form>
+  </div>
+</div>
+
+<div class="spinner-overlay">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <div class="spinner-text">Uploading...</div>
   </div>
 </div>
 
@@ -201,6 +247,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const dropZone = document.querySelector('.drag-and-drop-container');
   const fileInput = document.getElementById('fileInput');
   const uploadForm = document.getElementById('uploadForm');
+  const spinnerOverlay = document.querySelector('.spinner-overlay');
+
+  function showSpinner() {
+    spinnerOverlay.style.display = 'flex';
+  }
 
   dropZone.addEventListener('dragover', function(e) {
     e.preventDefault();
@@ -217,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     this.classList.remove('dragover');
     const files = e.dataTransfer.files;
     fileInput.files = files;
+    showSpinner();
     uploadForm.submit();
   });
 
@@ -225,6 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   fileInput.addEventListener('change', function() {
+    showSpinner();
     uploadForm.submit();
   });
 });
