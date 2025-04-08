@@ -32,7 +32,7 @@ def process_archive_file(archive_file):
     # Determine file type and open appropriate handler
     if hasattr(archive_file, 'name'):
         filename = archive_file.name.lower()
-        if filename.endswith('.tar.gz') or filename.endswith('.tgz'):
+        if filename.endswith('.tar.gz') or filename.endswith('.tgz') or filename.endswith('.mbz'):
             # For tar.gz files, we need to save to disk temporarily
             with open('/tmp/temp_archive', 'wb') as tmp:
                 for chunk in archive_file.chunks():
