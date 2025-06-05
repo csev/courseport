@@ -4,6 +4,18 @@ CoursePort
 
 http://www.courseport.org
 
+Running Locally on the Mac
+--------------------------
+
+If you have run through the install steps below (do that first), you can run a local
+server by going into the folder and starting the server:
+
+    cd courseport
+    source .venv/bin/activate   # If needed
+    python manage.py runserver
+
+And visit `http://localhost:8000`.
+
 Setting up a Virtual Environment on the Mac
 -------------------------------------------
 
@@ -30,17 +42,6 @@ Then checkout this repository:
     ...
     deactivate
 
-Running Locally on the Mac
---------------------------
-
-If you have Django installed on your local computer you can test any of the sample
-applications by going into the folder and starting the server:
-
-    cd courseport
-    source .venv/bin/activate   # If needed
-    python manage.py runserver
-
-And visit `http://localhost:8000`.
 
 Setting up a Virtual Environment on Python Anywhere
 ---------------------------------------------------
